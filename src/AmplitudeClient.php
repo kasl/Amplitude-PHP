@@ -36,6 +36,7 @@ class AmplitudeClient implements AmplitudeClientInterface
 
         $this->apiKey = $apiKey;
         $this->client = $client;
+        $this->client->setBaseUrl(self::AMPLITUDE_URL);
     }
 
     /**
