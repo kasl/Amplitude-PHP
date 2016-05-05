@@ -1,5 +1,5 @@
 <?php
-namespace Amplitude\Message;
+namespace Kasl\Amplitude\Message;
 
 /**
  * Event to be tracked by Amplitude
