@@ -1,78 +1,66 @@
 <?php
+
 namespace Amplitude;
 
-use Guzzle\Http\Client;
+use Guzzle\Http\ClientInterface;
 
 /**
  * Default Amplitude client implementation
  */
 class AmplitudeClient implements AmplitudeClientInterface
 {
-
     /** @var string */
     const AMPLITUDE_URL = 'https://api.amplitude.com/httpapi';
 
     /**
      * @var string
      */
-    protected $apiKey = '';
+    protected $apiKey;
 
     /**
-     * @var Client|null
+     * @var ClientInterface
      */
-    protected $client = null;
+    protected $client;
 
     /**
      * AmplitudeClient constructor.
-     * @param null|string $apiKey
+     *
+     * @param $apiKey
+     * @param ClientInterface $client
      */
-    public function __construct($apiKey = null)
+    public function __construct($apiKey, ClientInterface $client)
     {
-        if (null !== $apiKey) {
-            $this->setApiKey($apiKey);
+        if (empty($apiKey)) {
+            throw new \InvalidArgumentException('Empty api key', 500);
         }
-    }
 
-    /**
-     * @param string $apiKey
-     */
-    public function setApiKey($apiKey)
-    {
         $this->apiKey = $apiKey;
+        $this->client = $client;
     }
 
     /**
      * @param Message\Event $event
+     *
      * @return Message\Response
      */
     public function track(Message\Event $event)
     {
-        $request = $this->getClient()->post(null, null, $this->getPostBody($event));
+        $request = $this->client->post(null, null, $this->getPostBody($event));
         return $request->send();
     }
 
     /**
      * Get post body
+     *
      * @param Message\Event $event
+     *
      * @return array
      */
     protected function getPostBody(Message\Event $event)
     {
-        return array(
+        return [
             'api_key' => $this->apiKey,
             'event' => $event->format(),
-        );
-    }
-
-    /**
-     * Get client
-     * @return Client
-     */
-    protected function getClient()
-    {
-        if (null === $this->client) {
-            $this->client = new Client(self::AMPLITUDE_URL);
-        }
-        return $this->client;
+        ];
     }
 }
