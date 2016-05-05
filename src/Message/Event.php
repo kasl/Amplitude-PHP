@@ -1,4 +1,5 @@
 <?php
+
 namespace Kasl\Amplitude\Message;
 
 /**
@@ -45,7 +46,7 @@ class Event extends EventAbstract
     /** @var string */
     protected $deviceModel;
 
-    /** @var string  */
+    /** @var string */
     protected $deviceType;
 
     /** @var string */
@@ -66,8 +67,20 @@ class Event extends EventAbstract
     /** @var string */
     protected $language;
 
+    /** @var string */
+    protected $price;
+
+    /** @var string */
+    protected $quantity;
+
     /** @var float */
     protected $revenue;
+
+    /** @var string */
+    protected $productId;
+
+    /** @var string */
+    protected $revenueType;
 
     /** @var float */
     protected $locationLat;
@@ -90,6 +103,7 @@ class Event extends EventAbstract
     /**
      * @param string $name
      * @param string $value
+     *
      * @return $this
      */
     public function set($name, $value)
@@ -102,13 +116,14 @@ class Event extends EventAbstract
 
     /**
      * Set revenue to the main object and event properties
+     *
      * @param float $revenue
+     *
      * @return $this
      */
     public function setRevenue($revenue)
     {
-        return $this->set('revenue', $revenue)
-            ->addToEventProperties('revenue', $revenue);
+        return $this->set('revenue', $revenue)->addToEventProperties('revenue', $revenue);
     }
 
     /**
@@ -117,42 +132,45 @@ class Event extends EventAbstract
      */
     public function format()
     {
-        return json_encode(
-            array(
-                'user_id' => $this->getUserId(),
-                'device_id' => $this->getDeviceId(),
-                'event_type' => $this->getEventType(),
-                'time' => $this->getTime(),
-                'event_properties' => $this->getEventProperties(),
-                'user_properties' => $this->getUserProperties(),
-                'app_version' => $this->getAppVersion(),
-                'platform' => $this->getPlatform(),
-                'os_name' => $this->getOsName(),
-                'os_version' => $this->getOsVersion(),
-                'device_brand' => $this->getDeviceBrand(),
-                'device_manufacturer' => $this->getDeviceManufacturer(),
-                'device_model' => $this->getDeviceModel(),
-                'device_type' => $this->getDeviceType(),
-                'carrier' => $this->getCarrier(),
-                'country' => $this->getCountry(),
-                'region' => $this->getRegion(),
-                'city' => $this->getCity(),
-                'dma' => $this->getDma(),
-                'language' => $this->getLanguage(),
-                'revenue' => $this->getRevenue(),
-                'location_lat' => $this->getLocationLat(),
-                'location_lng' => $this->getLocationLng(),
-                'ip' => $this->getIp(),
-                'idfa' => $this->getIdfa(),
-                'adid' => $this->getAdid(),
-                'session_id' => $this->getSessionId(),
-            )
-        );
+        return json_encode(array(
+            'user_id' => $this->getUserId(),
+            'device_id' => $this->getDeviceId(),
+            'event_type' => $this->getEventType(),
+            'time' => $this->getTime(),
+            'event_properties' => $this->getEventProperties(),
+            'user_properties' => $this->getUserProperties(),
+            'app_version' => $this->getAppVersion(),
+            'platform' => $this->getPlatform(),
+            'os_name' => $this->getOsName(),
+            'os_version' => $this->getOsVersion(),
+            'device_brand' => $this->getDeviceBrand(),
+            'device_manufacturer' => $this->getDeviceManufacturer(),
+            'device_model' => $this->getDeviceModel(),
+            'device_type' => $this->getDeviceType(),
+            'carrier' => $this->getCarrier(),
+            'country' => $this->getCountry(),
+            'region' => $this->getRegion(),
+            'city' => $this->getCity(),
+            'dma' => $this->getDma(),
+            'language' => $this->getLanguage(),
+            'price' => $this->getPrice(),
+            'quantity' => $this->getQuantity(),
+            'revenue' => $this->getRevenue(),
+            'productId' => $this->getProductId(),
+            'revenueType' => $this->getRevenueType(),
+            'location_lat' => $this->getLocationLat(),
+            'location_lng' => $this->getLocationLng(),
+            'ip' => $this->getIp(),
+            'idfa' => $this->getIdfa(),
+            'adid' => $this->getAdid(),
+            'session_id' => $this->getSessionId(),
+        ));
     }
 
     /**
      * @param sring $name
      * @param mixed $value
+     *
      * @return $this
      */
     public function addToEventProperties($name, $value)
@@ -164,6 +182,7 @@ class Event extends EventAbstract
     /**
      * @param string $name
      * @param mixed $value
+     *
      * @return $this
      */
     public function addToUserProperties($name, $value)
