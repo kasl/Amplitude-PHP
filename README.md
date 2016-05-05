@@ -5,17 +5,12 @@ How to use it
 -------------
 
 ```php
-$apiKey = 123456;
-$amplitudeClient = new \Amplitude\AmplitudeClient($apiKey);
 
-$amplitudeEvent = new \Amplitude\AmplitudeEvent();
+$client = new Kasl\Amplitude\AmplitudeClient($apiKey, new \Guzzle\Http\Client());
 
-// For user properties
-$amplitudeEvent->set('city_id', 123)
-    ->set('country_id', 34);
-    
-// For event properties
-$amplitudeEvent->addToEventProperties('revenue', 12.34);
+$event = new Kasl\Amplitude\Message\Event();
 
-$response = $amplitudeClient->track($amplitudeEvent);
+$event->set('userId', 17)->set('eventType', '[Amplitude] Revenue');
+
+$client->track($event);
 ```
