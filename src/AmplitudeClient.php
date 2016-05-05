@@ -1,6 +1,6 @@
 <?php
 
-namespace Amplitude;
+namespace Kasl\Amplitude;
 
 use Guzzle\Http\ClientInterface;
 
