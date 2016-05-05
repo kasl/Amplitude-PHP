@@ -1,5 +1,5 @@
 <?php
-namespace Amplitude\Message;
+namespace Kasl\Amplitude\Message;
 
 /**
  * Abstract event class
