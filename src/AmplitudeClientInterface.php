@@ -1,5 +1,5 @@
 <?php
-namespace Amplitude;
+namespace Kasl\Amplitude;
 
 /**
  * Represents an Amplitude client.
